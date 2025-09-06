@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现在就奖励自己什么呢</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        header {
+            margin: 30px 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #9b59b6);
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* 卡片容器 */
+        .card-container {
+            perspective: 1500px;
+            margin: 40px auto;
+            width: 320px;
+            height: 420px;
+        }
+        
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border-radius: 20px;
+        }
+        
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            border-radius: 20px;
+        }
+        
+        .card-front {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: white;
+        }
+        
+        .card-back {
+            background: linear-gradient(135deg, #1abc9c, #3498db);
+            color: white;
+            transform: rotateY(180deg);
+            text-align: center;
+        }
+        
+        .question-icon {
+            font-size: 8rem;
+            margin-bottom: 30px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .card-front h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .card-front p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .reward-content {
+            font-size: 1.8rem;
+            line-height: 1.4;
+            margin: 20px 0;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            animation: pulse 2s infinite;
+        }
+        
+        .instructions {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+        
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .instructions p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        
+        .counter {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.8);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        
+        .floating-text {
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.7);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-text:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .floating-text:nth-child(2) {
+            top: 15%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+        
+        .floating-text:nth-child(3) {
+            bottom: 20%;
+            left: 8%;
+            animation-delay: 2s;
+        }
+        
+        .floating-text:nth-child(4) {
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-container {
+                width: 280px;
+                height: 380px;
+            }
+            
+            .question-icon {
+                font-size: 6rem;
+            }
+            
+            .reward-content {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>现在就奖励自己什么呢</h1>
+            <p class="subtitle">点击下方卡片，获取一个简单易行的即时自我奖励方式，给自己一个小小的惊喜！</p>
+        </header>
+        
+        <div class="card-container">
+            <div class="card" id="rewardCard">
+                <div class="card-face card-front">
+                    <i class="fas fa-question-circle question-icon"></i>
+                    <h2>点击揭晓</h2>
+                    <p>给自己一个小小的奖励</p>
+                    
+                    <!-- 浮动文字元素 -->
+                    <div class="floating-text">小确幸</div>
+                    <div class="floating-text">爱自己</div>
+                    <div class="floating-text">微奖励</div>
+                    <div class="floating-text">即时满足</div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="emoji" id="rewardEmoji">🎁</div>
+                    <div class="reward-content" id="rewardContent">点击卡片获取奖励</div>
+                    <p>点击卡片再次抽取</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="counter">
+            已发现 <span id="rewardCount">0</span> / 50 种奖励方式
+        </div>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-lightbulb"></i> 使用说明</h3>
+            <p>• 点击中央卡片，它会翻转并随机显示一个即时奖励</p>
+            <p>• 这些奖励都是简单易行、可立即实施的自我关爱行为</p>
+            <p>• 每次点击都会随机抽取不同奖励</p>
+            <p>• 尝试收集全部50种奖励方式！</p>
+        </div>
+    </div>
+
+    <script>
+        // 50种即时奖励行为
+        const rewards = [
+            { text: "闭上眼睛深呼吸三次", emoji: "😌" },
+            { text: "喝一杯温水", emoji: "💧" },
+            { text: "伸展身体一分钟", emoji: "🧘‍♀️" },
+            { text: "写下三件感恩的事", emoji: "📝" },
+            { text: "听一首喜欢的歌", emoji: "🎵" },
+            { text: "给植物浇浇水", emoji: "🌱" },
+            { text: "赞美自己一句", emoji: "💖" },
+            { text: "望向窗外远眺一分钟", emoji: "👀" },
+            { text: "整理桌面5分钟", emoji: "🧹" },
+            { text: "吃一片新鲜水果", emoji: "🍎" },
+            { text: "做5次深蹲", emoji: "🦵" },
+            { text: "闻一闻喜欢的香气", emoji: "👃" },
+            { text: "给朋友发条问候消息", emoji: "📱" },
+            { text: "看一张美丽的风景照", emoji: "🏞️" },
+            { text: "微笑10秒钟", emoji: "😊" },
+            { text: "喝一小杯热茶", emoji: "🍵" },
+            { text: "转动肩膀放松", emoji: "💆‍♂️" },
+            { text: "回忆一次美好经历", emoji: "✨" },
+            { text: "站起来活动一下", emoji: "🚶‍♀️" },
+            { text: "吃一小块黑巧克力", emoji: "🍫" },
+            { text: "打开窗户呼吸新鲜空气", emoji: "🌬️" },
+            { text: "整理手机相册5分钟", emoji: "📸" },
+            { text: "说一句积极肯定的话", emoji: "💬" },
+            { text: "给手部抹点护手霜", emoji: "✋" },
+            { text: "看看云朵的形状", emoji: "☁️" },
+            { text: "清空收件箱的垃圾邮件", emoji: "🗑️" },
+            { text: "喝一口冰爽的水", emoji: "🧊" },
+            { text: "做10次眨眼练习", emoji: "👁️" },
+            { text: "计划一个小愿望", emoji: "📅" },
+            { text: "整理一个抽屉", emoji: "🗄️" },
+            { text: "吃几颗坚果", emoji: "🥜" },
+            { text: "按摩太阳穴30秒", emoji: "💆‍♀️" },
+            { text: "阅读一页喜欢的书", emoji: "📖" },
+            { text: "写下今天的小成就", emoji: "🏆" },
+            { text: "做5分钟眼保健操", emoji: "👓" },
+            { text: "喝一杯鲜榨果汁", emoji: "🧃" },
+            { text: "整理电脑桌面", emoji: "💻" },
+            { text: "看一个搞笑短视频", emoji: "🤣" },
+            { text: "站立工作5分钟", emoji: "🧍" },
+            { text: "吃一小份健康零食", emoji: "🥗" },
+            { text: "做颈部放松运动", emoji: "💆‍♂️" },
+            { text: "听一段自然声音", emoji: "🌿" },
+            { text: "清理浏览器书签", emoji: "🔖" },
+            { text: "喝一杯温蜂蜜水", emoji: "🍯" },
+            { text: "转动脚踝放松", emoji: "🦶" },
+            { text: "收藏一张美图做壁纸", emoji: "🖼️" },
+            { text: "做5分钟冥想", emoji: "🧎" },
+            { text: "喝一杯热牛奶", emoji: "🥛" },
+            { text: "整理背包或手提包", emoji: "🎒" }
+        ];
+        
+        const card = document.getElementById('rewardCard');
+        const rewardContent = document.getElementById('rewardContent');
+        const rewardEmoji = document.getElementById('rewardEmoji');
+        const rewardCount = document.getElementById('rewardCount');
+        
+        // 存储已发现的奖励
+        let discoveredRewards = new Set();
+        let lastRewardIndex = -1;
+        
+        card.addEventListener('click', flipCard);
+        
+        function flipCard() {
+            // 如果卡片已经翻转，先重置
+            if (card.classList.contains('flipped')) {
+                card.classList.remove('flipped');
+                // 等待翻转动画完成
+                setTimeout(() => {
+                    getRandomReward();
+                    card.classList.add('flipped');
+                }, 10);
+            } else {
+                getRandomReward();
+                card.classList.add('flipped');
+            }
+        }
+        
+        function getRandomReward() {
+            let randomIndex;
+            
+            // 确保不会连续两次出现相同的奖励
+            do {
+                randomIndex = Math.floor(Math.random() * rewards.length);
+            } while (randomIndex === lastRewardIndex);
+            
+            lastRewardIndex = randomIndex;
+            
+            const reward = rewards[randomIndex];
+            rewardContent.textContent = reward.text;
+            rewardEmoji.textContent = reward.emoji;
+            
+            // 添加到已发现奖励
+            if (!discoveredRewards.has(randomIndex)) {
+                discoveredRewards.add(randomIndex);
+                rewardCount.textContent = discoveredRewards.size;
+            }
+        }
+        
+        // 初始化
+        rewardCount.textContent = discoveredRewards.size;
+    </script>
+</body>
+</html>
